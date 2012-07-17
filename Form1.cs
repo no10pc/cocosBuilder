@@ -88,7 +88,7 @@ namespace CocosBuilder
             sb.AppendLine(string.Format(@"#ifndef {0}_H",className.ToUpper()));
             sb.AppendLine(string.Format(@"#define {0}_H",className.ToUpper()));
             sb.AppendLine(@"#include ""cocos2d.h""");
-            sb.AppendLine(@"USING_NS_CC");
+            sb.AppendLine(@"USING_NS_CC;");
              sb.AppendLine(string.Format(@"class {0} : public CCLayer",className));
             sb.AppendLine(@"{");
             sb.AppendLine(@"public:");
@@ -103,7 +103,7 @@ namespace CocosBuilder
         }
         private string makecppCode(string className,string pScene)
         {
-            StringBuilder sb = new StringBuilder(1527);
+            StringBuilder sb = new StringBuilder();
             sb.AppendLine(string.Format(@"#include ""{0}.h""",className));
             sb.AppendLine(string.Format(@"#include ""{0}.h""", pScene));
             sb.AppendLine(@"");
