@@ -152,8 +152,17 @@ namespace CocosBuilder
             sb.AppendLine(@"    }");
             sb.AppendLine(@"    else");
             sb.AppendLine(@"    {        ");
-            sb.AppendLine(@"        CCDirector::sharedDirector()->replaceScene(pNewScene);");
+            if (chkTrans.Checked)
+            {
+            sb.AppendLine(string.Format(@"        {0}", CCTransitionCode("pNewScene")));
+            sb.AppendLine(@"        CCDirector::sharedDirector()->replaceScene(transitionRotoZoom);");
+            }
+            else
+            {
+                sb.AppendLine(@"      CCDirector::sharedDirector()->replaceScene(pNewScene);");
+            }
             sb.AppendLine(@"    }");
+
             sb.AppendLine(@"}");
             sb.AppendLine(string.Format(@"void {0}::MainMenuCallback(CCObject* pSender)",className));
             sb.AppendLine(@"{");
@@ -161,11 +170,56 @@ namespace CocosBuilder
             sb.AppendLine(string.Format(@"    CCLayer* pLayer = new {0}();",pScene));
             sb.AppendLine(@"    pLayer->autorelease();");
             sb.AppendLine(@"    pScene->addChild(pLayer);");
-            sb.AppendLine(@"    CCDirector::sharedDirector()->replaceScene(pScene);");
+            if (chkTrans.Checked)
+            {
+                sb.AppendLine(string.Format(@"        {0}", CCTransitionCode("pScene")));
+                sb.AppendLine(@"    CCDirector::sharedDirector()->replaceScene(transitionRotoZoom);");
+            }
+            else
+            {
+                sb.AppendLine(@"      CCDirector::sharedDirector()->replaceScene(pScene);");
+            }
             sb.AppendLine(@"}");
-
+  
             return sb.ToString();
         }
+
+        private string CCTransitionCode(string pScene)
+        {
+            Random rand = new Random(DateTime.Now.Millisecond);
+            int rNo = rand.Next(1, 26);
+            List<string> list = new List<string>();
+            list.Add("CCTransitionJumpZoom* transitionRotoZoom =CCTransitionJumpZoom::transitionWithDuration(0.9f, "+pScene+");");//跳跃式，本场景先会缩小，然后跳跃进来 
+			list.Add("CCTransitionFade* transitionRotoZoom =CCTransitionFade::transitionWithDuration(0.9f, "+pScene+");");//淡出淡入，原场景淡出，新场景淡入 
+			list.Add("CCTransitionFade* transitionRotoZoom =CCTransitionFade::transitionWithDuration(0.9f, "+pScene+", ccWHITE);");//如果上一个的函数，带3个参数，则第三个参数就是淡出淡入的颜色 
+			list.Add("CCTransitionFlipX* transitionRotoZoom =CCTransitionFlipX::transitionWithDuration(0.9f, "+pScene+", kOrientationLeftOver);");//x轴左翻 
+			list.Add("CCTransitionFlipX* transitionRotoZoom =CCTransitionFlipX::transitionWithDuration(0.9f, "+pScene+", kOrientationRightOver);");//x轴右翻 
+			list.Add("CCTransitionFlipY* transitionRotoZoom =CCTransitionFlipY::transitionWithDuration(0.9f, "+pScene+", kOrientationUpOver);");//y轴上翻 
+			list.Add("CCTransitionFlipY* transitionRotoZoom =CCTransitionFlipY::transitionWithDuration(0.9f, "+pScene+", kOrientationDownOver);");//y轴下翻 
+			list.Add("CCTransitionFlipAngular* transitionRotoZoom =CCTransitionFlipAngular::transitionWithDuration(0.9f, "+pScene+", kOrientationLeftOver);");//有角度转的左翻 
+			list.Add("CCTransitionFlipAngular* transitionRotoZoom =CCTransitionFlipAngular::transitionWithDuration(0.9f, "+pScene+", kOrientationRightOver);");//有角度转的右翻 
+			list.Add("CCTransitionZoomFlipX* transitionRotoZoom =CCTransitionZoomFlipX::transitionWithDuration(0.9f, "+pScene+", kOrientationLeftOver);");//带缩放效果x轴左翻 
+			list.Add("CCTransitionZoomFlipX* transitionRotoZoom =CCTransitionZoomFlipX::transitionWithDuration(0.9f, "+pScene+", kOrientationRightOver);");//带缩放效果x轴右翻 
+			list.Add("CCTransitionZoomFlipY* transitionRotoZoom =CCTransitionZoomFlipY::transitionWithDuration(0.9f, "+pScene+", kOrientationUpOver);");//带缩放效果y轴上翻 
+			list.Add("CCTransitionZoomFlipY* transitionRotoZoom =CCTransitionZoomFlipY::transitionWithDuration(0.9f, "+pScene+", kOrientationDownOver);");//带缩放效果y轴下翻 
+			list.Add("CCTransitionZoomFlipAngular* transitionRotoZoom =CCTransitionZoomFlipAngular::transitionWithDuration(0.9f, "+pScene+", kOrientationLeftOver);");//带缩放效果/有角度转的左翻 
+			list.Add("CCTransitionZoomFlipAngular* transitionRotoZoom =CCTransitionZoomFlipAngular::transitionWithDuration(0.9f, "+pScene+", kOrientationRightOver);");//带缩放效果有角度转的右翻 
+			list.Add("CCTransitionShrinkGrow* transitionRotoZoom =CCTransitionShrinkGrow::transitionWithDuration(0.9f, "+pScene+");");//交错换 
+			list.Add("CCTransitionRotoZoom* transitionRotoZoom =CCTransitionRotoZoom::transitionWithDuration(0.9f, "+pScene+");");//转角换 
+			list.Add("CCTransitionMoveInL* transitionRotoZoom =CCTransitionMoveInL::transitionWithDuration(0.9f, "+pScene+");");//新场景从左移入覆盖 
+			list.Add("CCTransitionMoveInR* transitionRotoZoom =CCTransitionMoveInR::transitionWithDuration(0.9f, "+pScene+");");//新场景从右移入覆盖 
+			list.Add("CCTransitionMoveInT* transitionRotoZoom =CCTransitionMoveInT::transitionWithDuration(0.9f, "+pScene+");");//新场景从上移入覆盖 
+			list.Add("CCTransitionMoveInB* transitionRotoZoom =CCTransitionMoveInB::transitionWithDuration(0.9f, "+pScene+");");//新场景从下移入覆盖 
+			list.Add("CCTransitionSlideInL* transitionRotoZoom =CCTransitionSlideInL::transitionWithDuration(0.9f, "+pScene+");");//场景从左移入推出原场景 
+			list.Add("CCTransitionSlideInR* transitionRotoZoom =CCTransitionSlideInR::transitionWithDuration(0.9f, "+pScene+");");//场景从右移入推出原场景 
+			list.Add("CCTransitionSlideInT* transitionRotoZoom =CCTransitionSlideInT::transitionWithDuration(0.9f, "+pScene+");");//场景从上移入推出原场景 
+			list.Add("CCTransitionSlideInB* transitionRotoZoom =CCTransitionSlideInB::transitionWithDuration(0.9f, "+pScene+");");//场景从下移入推出原场景 
+			list.Add("CCTransitionCrossFade* transitionRotoZoom =CCTransitionCrossFade::transitionWithDuration(0.9f,"+pScene+");");//淡出淡入交叉，同时进行 
+			//
+            
+            return list[rNo].ToString();
+        }
+
         public void WriteFile(string FilePath, object StringValue)
         {
             StreamWriter FileWriter = new StreamWriter(FilePath, true, System.Text.Encoding.Default);

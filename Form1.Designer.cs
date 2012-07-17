@@ -40,9 +40,10 @@
             this.label5 = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.txtcode_h = new System.Windows.Forms.TextBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.txtcode_cpp = new System.Windows.Forms.TextBox();
-            this.txtcode_h = new System.Windows.Forms.TextBox();
+            this.chkTrans = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -158,6 +159,17 @@
             this.tabPage1.Text = ".h";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // txtcode_h
+            // 
+            this.txtcode_h.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtcode_h.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(102)))), ((int)(((byte)(0)))));
+            this.txtcode_h.Location = new System.Drawing.Point(3, 3);
+            this.txtcode_h.Multiline = true;
+            this.txtcode_h.Name = "txtcode_h";
+            this.txtcode_h.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.txtcode_h.Size = new System.Drawing.Size(364, 269);
+            this.txtcode_h.TabIndex = 4;
+            // 
             // tabPage2
             // 
             this.tabPage2.Controls.Add(this.txtcode_cpp);
@@ -180,22 +192,22 @@
             this.txtcode_cpp.Size = new System.Drawing.Size(364, 269);
             this.txtcode_cpp.TabIndex = 5;
             // 
-            // txtcode_h
+            // chkTrans
             // 
-            this.txtcode_h.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtcode_h.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(102)))), ((int)(((byte)(0)))));
-            this.txtcode_h.Location = new System.Drawing.Point(3, 3);
-            this.txtcode_h.Multiline = true;
-            this.txtcode_h.Name = "txtcode_h";
-            this.txtcode_h.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtcode_h.Size = new System.Drawing.Size(364, 269);
-            this.txtcode_h.TabIndex = 4;
+            this.chkTrans.AutoSize = true;
+            this.chkTrans.Location = new System.Drawing.Point(157, 84);
+            this.chkTrans.Name = "chkTrans";
+            this.chkTrans.Size = new System.Drawing.Size(96, 16);
+            this.chkTrans.TabIndex = 1000;
+            this.chkTrans.Text = "页面切换效果";
+            this.chkTrans.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(431, 464);
+            this.Controls.Add(this.chkTrans);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.btnCanel);
             this.Controls.Add(this.btnOk);
@@ -237,6 +249,7 @@
         private System.Windows.Forms.TextBox txtcode_h;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.TextBox txtcode_cpp;
+        private System.Windows.Forms.CheckBox chkTrans;
     }
 }
 
